@@ -32,7 +32,7 @@ class DBService {
     title TEXT NOT NULL,
     duration INTEGER NOT NULL,
     plot TEXT NOT NULL,
-    year INTEGER NOT NULL,
+    year INTEGER NOT NULL
     )''',
     );
   }
