@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:progetto_movie/models/movie.dart';
 import 'package:progetto_movie/viewmodels/movie_view_models.dart';
@@ -41,7 +42,7 @@ class _MovieFormDialogState extends State<MovieFormDialog> {
     super.dispose();
   }
 
-  void submitForm() {
+  void _submitForm() {
     if (_formKey.currentState!.validate()) {
       final newMovie = Movie(
         title: _titleController.text,
@@ -61,6 +62,56 @@ class _MovieFormDialogState extends State<MovieFormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return AlertDialog(
+      title: Text(widget.movie == null ? 'Aggiungi film' : 'Modifica film'),
+      content: SingleChildScrollView(
+        key: _formKey,
+        child: Form(
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _titleController,
+                decoration: const InputDecoration(labelText: 'Titolo'),
+                validator: (value) => value == null || value.isEmpty
+                    ? 'Campo obbligatorio'
+                    : null,
+              ),
+              TextFormField(
+                controller: _durationController,
+                decoration: const InputDecoration(
+                  labelText: 'Durata in muniti',
+                ),
+                validator: (value) =>
+                    value == null || int.tryParse(value) == null
+                    ? 'Inserire un numero valido'
+                    : null,
+              ),
+              TextFormField(
+                controller: _plotController,
+                decoration: const InputDecoration(labelText: 'Trama'),
+                validator: (value) => value == null || value.isEmpty
+                    ? 'Trama obbligatoria'
+                    : null,
+              ),
+              TextFormField(
+                controller: _yearController,
+                decoration: const InputDecoration(labelText: 'Anno uscita'),
+                validator: (value) =>
+                    value == null || int.tryParse(value) == null
+                    ? 'Inserire un anno valido'
+                    : null,
+              ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Annulla'),
+        ),
+        ElevatedButton(onPressed: _submitForm, child: Text('Salva')),
+      ],
+    );
   }
 }
