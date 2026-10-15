@@ -7,7 +7,7 @@ class MovieViewModels extends ChangeNotifier {
 
   List<Movie> _movies = [];
   List<Movie> _filteredMovies = [];
-  List<Movie> get movie => _filteredMovies;
+  List<Movie> get movies => _filteredMovies;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
