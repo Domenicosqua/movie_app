@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
           if (viewModel.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (viewModel.movie.isEmpty) {
+          if (viewModel.movies.isEmpty) {
             return const Center(
               child: Text(
                 'Non hai aggiunto film',
