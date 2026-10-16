@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:progetto_movie/viewmodels/movie_view_models.dart';
-import 'package:progetto_movie/views/component/movie_form_dialog.dart';
+import 'package:progetto_movie/views/component/movie_card.dart';
 import 'package:provider/provider.dart';
 
 class MovieListWidget extends StatefulWidget {
@@ -22,37 +22,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
             itemCount: movies.length,
             itemBuilder: (context, index) {
               final movie = movies[index];
-              return Card(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: ListTile(
-                  title: Text(movie.title),
-                  subtitle: Text(
-                    'Anno: ${movie.year} - Durata: ${movie.duration}.\nTrama: ${movie.plot}',
-                  ),
-                  trailing: Wrap(
-                    spacing: 8,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => MovieFormDialog(movie: movie),
-                          );
-                        },
-                        icon: Icon(Icons.edit, color: Colors.blue),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          context.read<MovieViewModels>().deleteMovie(
-                            movie.id!,
-                          );
-                        },
-                        icon: Icon(Icons.delete, color: Colors.red),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return MovieCard(movie: movie);
             },
           ),
         ),

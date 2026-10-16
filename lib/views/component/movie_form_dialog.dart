@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:progetto_movie/models/movie.dart';
 import 'package:progetto_movie/viewmodels/movie_view_models.dart';
+import 'package:progetto_movie/views/component/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class MovieFormDialog extends StatefulWidget {
@@ -44,6 +45,7 @@ class _MovieFormDialogState extends State<MovieFormDialog> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       final newMovie = Movie(
+        id: widget.movie?.id,
         title: _titleController.text,
         duration: int.parse(_durationController.text),
         plot: _plotController.text,
@@ -68,33 +70,35 @@ class _MovieFormDialogState extends State<MovieFormDialog> {
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
+              CustomTextField(
                 controller: _titleController,
-                decoration: const InputDecoration(labelText: 'Titolo'),
+                label: 'Titolo:',
+                keyboardType: TextInputType.text,
                 validator: (value) => value == null || value.isEmpty
                     ? 'Campo obbligatorio'
                     : null,
               ),
-              TextFormField(
+              CustomTextField(
                 controller: _durationController,
-                decoration: const InputDecoration(
-                  labelText: 'Durata in muniti',
-                ),
+                label: 'Durata in minuti:',
+                keyboardType: TextInputType.number,
                 validator: (value) =>
                     value == null || int.tryParse(value) == null
                     ? 'Inserire un numero valido'
                     : null,
               ),
-              TextFormField(
+              CustomTextField(
                 controller: _plotController,
-                decoration: const InputDecoration(labelText: 'Trama'),
+                label: 'Trama',
+                keyboardType: TextInputType.text,
                 validator: (value) => value == null || value.isEmpty
                     ? 'Trama obbligatoria'
                     : null,
               ),
-              TextFormField(
+              CustomTextField(
                 controller: _yearController,
-                decoration: const InputDecoration(labelText: 'Anno uscita'),
+                label: 'Anno di produzione',
+                keyboardType: TextInputType.number,
                 validator: (value) =>
                     value == null || int.tryParse(value) == null
                     ? 'Inserire un anno valido'
